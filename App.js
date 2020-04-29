@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { BlogProvider } from "./src/context/BlogContext";
+import BlogContext from "./src/context/BlogContext";
 
 function IndexScreen() {
+  const value = useContext(BlogContext);
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View>
       <Text>Index Screen</Text>
+      <Text>{value}</Text>
     </View>
   );
 }
