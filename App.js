@@ -3,17 +3,17 @@ import { View, Text, FlatList, Button } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { BlogProvider } from "./src/context/BlogContext";
-import BlogContext from "./src/context/BlogContext";
+import { Provider } from "./src/context/BlogContext";
+import { Context } from "./src/context/BlogContext";
 
 function IndexScreen() {
-  const { data, addBlogPost } = useContext(BlogContext);
+  const { state, addBlogPost } = useContext(Context);
   return (
     <View>
       <Text>Index Screen</Text>
       <Button title="Add Blog Post" onPress={addBlogPost} />
       <FlatList
-        data={data}
+        data={state}
         keyExtractor={(blogPost) => blogPost.title}
         renderItem={({ item }) => {
           return <Text>{item.title}</Text>;
@@ -37,9 +37,9 @@ function App() {
 
 export default () => {
   return (
-    <BlogProvider>
+    <Provider>
       <App />
-    </BlogProvider>
+    </Provider>
   );
 };
 
