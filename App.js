@@ -43,10 +43,15 @@ function IndexScreen({ navigation }) {
   );
 }
 
-const ShowScreen = () => {
+const ShowScreen = ({ route }) => {
+  const { id } = route.params;
+  const { state } = useContext(Context);
+
+  const blogPost = state.find((blogPost) => blogPost.id === id);
+
   return (
     <View>
-      <Text>Show Screen</Text>
+      <Text>{blogPost.title}</Text>
     </View>
   );
 };
