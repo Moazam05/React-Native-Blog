@@ -56,6 +56,14 @@ const ShowScreen = ({ route }) => {
   );
 };
 
+const CreateScreen = ({ navigation }) => {
+  return (
+    <View>
+      <Text>Create Screen</Text>
+    </View>
+  );
+};
+
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
@@ -79,8 +87,21 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Blog" component={IndexScreen} />
+        <Stack.Screen
+          name="Blog"
+          component={IndexScreen}
+          options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("CreateScreen")}
+              >
+                <Feather name="plus" size={30} style={{ marginRight: 10 }} />
+              </TouchableOpacity>
+            ),
+          })}
+        />
         <Stack.Screen name="ShowScreen" component={ShowScreen} />
+        <Stack.Screen name="CreateScreen" component={CreateScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
