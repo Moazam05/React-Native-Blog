@@ -16,10 +16,9 @@ import { Provider } from "./src/context/BlogContext";
 import { Context } from "./src/context/BlogContext";
 
 function IndexScreen({ navigation }) {
-  const { state, addBlogPost, deleteBlogPost } = useContext(Context);
+  const { state, deleteBlogPost } = useContext(Context);
   return (
     <View>
-      <Button title="Add Blog Post" onPress={addBlogPost} />
       <FlatList
         data={state}
         keyExtractor={(blogPost) => blogPost.title}
@@ -57,7 +56,7 @@ const ShowScreen = ({ route }) => {
   );
 };
 
-const CreateScreen = () => {
+const CreateScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { addBlogPost } = useContext(Context);
@@ -77,7 +76,11 @@ const CreateScreen = () => {
       />
       <Button
         title="Add Blog Post"
-        onPress={() => addBlogPost(title, content)}
+        onPress={() => {
+          addBlogPost(title, content, () => {
+            navigation.navigate("Blog");
+          });
+        }}
       />
     </View>
   );
@@ -104,10 +107,12 @@ const styles = StyleSheet.create({
     borderColor: "black",
     marginBottom: 15,
     padding: 5,
+    margin: 5,
   },
   label: {
     fontSize: 20,
     marginBottom: 5,
+    margin: 5,
   },
 });
 
