@@ -11,6 +11,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
+import { EvilIcons } from "@expo/vector-icons";
 
 import { Provider } from "./src/context/BlogContext";
 import { Context } from "./src/context/BlogContext";
@@ -52,6 +53,7 @@ const ShowScreen = ({ route }) => {
   return (
     <View>
       <Text>{blogPost.title}</Text>
+      <Text>{blogPost.content}</Text>
     </View>
   );
 };
@@ -82,6 +84,14 @@ const CreateScreen = ({ navigation }) => {
           });
         }}
       />
+    </View>
+  );
+};
+
+const EditScreen = () => {
+  return (
+    <View>
+      <Text>Edit Screen</Text>
     </View>
   );
 };
@@ -135,8 +145,25 @@ function App() {
             ),
           })}
         />
-        <Stack.Screen name="ShowScreen" component={ShowScreen} />
+        <Stack.Screen
+          name="ShowScreen"
+          component={ShowScreen}
+          options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("EditScreen")}
+              >
+                <EvilIcons
+                  name="pencil"
+                  size={30}
+                  style={{ marginRight: 10 }}
+                />
+              </TouchableOpacity>
+            ),
+          })}
+        />
         <Stack.Screen name="CreateScreen" component={CreateScreen} />
+        <Stack.Screen name="EditScreen" component={EditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
