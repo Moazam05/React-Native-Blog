@@ -60,6 +60,7 @@ const ShowScreen = ({ route }) => {
 const CreateScreen = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const { addBlogPost } = useContext(Context);
   return (
     <View>
       <Text style={styles.label}>Enter Title:</Text>
@@ -74,7 +75,10 @@ const CreateScreen = () => {
         value={content}
         onChangeText={(text) => setContent(text)}
       />
-      <Button title="Add Blog Post" />
+      <Button
+        title="Add Blog Post"
+        onPress={() => addBlogPost(title, content)}
+      />
     </View>
   );
 };
