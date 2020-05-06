@@ -14,7 +14,7 @@ import { Feather } from "@expo/vector-icons";
 import { Provider } from "./src/context/BlogContext";
 import { Context } from "./src/context/BlogContext";
 
-function IndexScreen() {
+function IndexScreen({ navigation }) {
   const { state, addBlogPost, deleteBlogPost } = useContext(Context);
   return (
     <View>
@@ -24,20 +24,32 @@ function IndexScreen() {
         keyExtractor={(blogPost) => blogPost.title}
         renderItem={({ item }) => {
           return (
-            <View style={styles.row}>
-              <Text style={styles.title}>
-                {item.title} - {item.id}
-              </Text>
-              <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
-                <Feather style={styles.icon} name="trash" />
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("ShowScreen", { id: item.id })}
+            >
+              <View style={styles.row}>
+                <Text style={styles.title}>
+                  {item.title} - {item.id}
+                </Text>
+                <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
+                  <Feather style={styles.icon} name="trash" />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
           );
         }}
       />
     </View>
   );
 }
+
+const ShowScreen = () => {
+  return (
+    <View>
+      <Text>Show Screen</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   row: {
@@ -63,6 +75,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Blog" component={IndexScreen} />
+        <Stack.Screen name="ShowScreen" component={ShowScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
