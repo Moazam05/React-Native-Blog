@@ -1,5 +1,12 @@
 import React, { useContext } from "react";
-import { View, Text, FlatList, Button, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Feather } from "@expo/vector-icons";
@@ -18,8 +25,12 @@ function IndexScreen() {
         renderItem={({ item }) => {
           return (
             <View style={styles.row}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Feather style={styles.icon} name="trash" />
+              <Text style={styles.title}>
+                {item.title} - {item.id}
+              </Text>
+              <TouchableOpacity onPress={() => console.log(item.id)}>
+                <Feather style={styles.icon} name="trash" />
+              </TouchableOpacity>
             </View>
           );
         }}
