@@ -15,7 +15,7 @@ import { Provider } from "./src/context/BlogContext";
 import { Context } from "./src/context/BlogContext";
 
 function IndexScreen() {
-  const { state, addBlogPost } = useContext(Context);
+  const { state, addBlogPost, deleteBlogPost } = useContext(Context);
   return (
     <View>
       <Button title="Add Blog Post" onPress={addBlogPost} />
@@ -28,7 +28,7 @@ function IndexScreen() {
               <Text style={styles.title}>
                 {item.title} - {item.id}
               </Text>
-              <TouchableOpacity onPress={() => console.log(item.id)}>
+              <TouchableOpacity onPress={() => deleteBlogPost(item.id)}>
                 <Feather style={styles.icon} name="trash" />
               </TouchableOpacity>
             </View>
